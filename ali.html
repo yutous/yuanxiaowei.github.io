@@ -1,0 +1,16 @@
+<html>
+<body>
+
+
+<script src="https://a.alipayobjects.com/g/h5-lib/alipayjsapi/3.0.3/alipayjsapi.inc.min.js"></script>
+<button id="J_btn" class="btn btn-default">打开分享面板</button>
+<script>
+var btn = document.querySelector('#J_btn');
+btn.addEventListener('click', function(){
+ap.share(function(result){
+ap.alert(result.shareResult);
+});
+});
+</script>
+</body>
+</html>
