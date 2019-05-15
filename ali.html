@@ -1,13 +1,19 @@
 <html>
 <body>
+<p>测试分享</p>
 
-
-<script src="https://a.alipayobjects.com/g/h5-lib/alipayjsapi/3.0.3/alipayjsapi.inc.min.js"></script>
-<button id="J_btn" class="btn btn-default">打开分享面板</button>
+<script src="https://yutous.github.io/alipayjsapi.js"></script>
+<button id="J_btn" class="btn btn-default" style="height:50px;wigth:100px">打开分享面板</button>
 <script>
 var btn = document.querySelector('#J_btn');
+var opt = {};
+opt.title = "拿去花第二季";
+opt.content = "这是拿去花的分享";
+opt.showToolBar=false;
+opt.url = "https://yutous.github.io/ali.html";
+opt.image = "https://yutous.github.io/shwd-liwu.png";
 btn.addEventListener('click', function(){
-ap.share(function(result){
+ap.share(opt,function(result){
 ap.alert(result.shareResult);
 });
 });
