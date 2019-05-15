@@ -4,19 +4,46 @@
 
 <script src="https://yutous.github.io/test.js"></script>
 <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="J_btn" class="btn btn-default" style="height:100px;width:200px">打开分享面板</button>
+<a href="javascript:void(0)" class="btn btn-default read" style="height:100px;width:200px">开始分享</a>
+
 <script>
-var btn = document.querySelector('#J_btn');
-var opt = {};
-opt.title = "拿去花第二季";
-opt.content = "这是拿去花的分享";
-opt.showToolBar=false;
-opt.url = "https://yutous.github.io/ali.html";
-opt.image = "https://yutous.github.io/shwd-liwu.png";
-opt.bizType = "didi";
-btn.addEventListener('click', function(){
-ap.share(opt,function(result){
-ap.alert(result.shareResult);
+function ready(callback) {
+// 如果jsbridge已经注⼊则直接调⽤
+if (window.AlipayJSBridge) {
+callback && callback();
+} else {
+// 如果没有注⼊则监听注⼊的事件
+document.addEventListener('AlipayJSBridgeReady', callback, false);
+}
+}
+ready(function() {
+document.querySelector('.read').addEventListener('click', function() {
+AlipayJSBridge.call("startShare", {
+'bizType':'testShareBizType', 
+//当⽤户选择该数组内指定的分享渠道时，仅返回渠道名，⽽不是真正开始⾃动分享
+'onlySelectChannel': [ "ALPContact", "ALPTimeLine"]
+}, function(data) {
+console.log("当前⽤户点击的分享渠道名为："+data.channelName);
+//通过onlySelectChannel屏蔽掉⾃动分享功能后，⾃⾏调⽤shareToChannel接⼝进⾏单独分享
+AlipayJSBridge.call("shareToChannel", {
+name: data.channelName,
+param: {
+contentType: 'url', //选填，⽬前⽀持⽀持"auto",text","image","url"格式（android分享组件不⽀持auto）
+title: '拿去花第二季',
+content: '这是拿去花的分享',
+iconUrl: 'https://yutous.github.io/shwd-liwu.png',
+imageUrl: 'https://yutous.github.io/shwd-liwu.png',
+captureScreen: false, //是否分享当前⻚⾯的截图
+url: 'https://yutous.github.io/ali.html',
+otherParams: {} //特定分享渠道的扩展参数
+}
+}, function(result) {
+console.log(result)
+});
+});
+});
+});
+
 });
 });
 </script>
