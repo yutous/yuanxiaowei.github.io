@@ -2220,7 +2220,7 @@ return Promise;
       b: function b(opt) {
         var startShareOpt = {};
         var shareToChannelOpt = {};
-        startShareOpt.onlySelectChannel = ['ALPContact', 'ALPTimeLine', 'ALPCommunity', 'Weibo', 'DingTalkSession', 'SMS', 'Weixin', 'WeixinTimeLine', 'QQ', 'QQZone'];
+        startShareOpt.onlySelectChannel = ['ALPContact', 'ALPTimeLine'];
         if (__hasOwnProperty(opt, 'bizType')) {
           startShareOpt.bizType = opt.bizType;
         }
